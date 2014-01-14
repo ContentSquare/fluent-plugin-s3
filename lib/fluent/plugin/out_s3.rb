@@ -3,7 +3,7 @@ module Fluent
 require 'fluent/mixin/config_placeholders'
 
 class S3Output < Fluent::TimeSlicedOutput
-  Fluent::Plugin.register_output('s3', self)
+  Fluent::Plugin.register_output('s3-plain', self)
 
   def initialize
     super
@@ -123,9 +123,9 @@ class S3Output < Fluent::TimeSlicedOutput
     end
 
     if @format_json
-      Yajl.dump(record) + "\n"
+      record + "\n"
     else
-      "#{time_str}\t#{tag}\t#{Yajl.dump(record)}\n"
+      record + "\n"
     end
   end
 
